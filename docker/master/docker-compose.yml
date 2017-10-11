@@ -11,15 +11,5 @@ services:
       interval: 5s
       retries: 3
 
-  slave:
-    image: hunsche/pg-slave
-    links:
-      - master:master
-    ports: 
-      - '5432'
-    depends_on:
-      master:
-        condition: service_healthy
-      
 volumes:
   master_data:
