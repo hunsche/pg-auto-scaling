@@ -1,18 +1,18 @@
 version: '2.1'
 services:
   master:
-    image: hunsche/replicant
+    image: hunsche/pg-master
     volumes:
       - master_data:/var/lib/postgresql/data
     ports: 
       - '5532:5432'
 
   slave:
-    image: hunsche/replicant
+    image: hunsche/pg-slave
     links:
       - master:master
     ports: 
-      - '5533:5432'
+      - '5432'
 
 volumes:
   master_data:
