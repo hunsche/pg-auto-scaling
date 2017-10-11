@@ -6,6 +6,10 @@ services:
       - master_data:/var/lib/postgresql/data
     ports: 
       - '5532:5432'
+    healthcheck: 
+      test: psql beers_db -c "\q" && echo ok
+      interval: 5s
+      retries: 3
 
   slave:
     image: hunsche/pg-slave
@@ -13,6 +17,9 @@ services:
       - master:master
     ports: 
       - '5432'
-
+    depends_on:
+      master:
+        condition: service_healthy
+      
 volumes:
   master_data:
